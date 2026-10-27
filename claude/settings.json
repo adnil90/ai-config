@@ -1,0 +1,21 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {"matcher": "Bash", "script": "git-guard.py", "timeout": 10},
+      {"matcher": "Edit|Write|NotebookEdit", "script": "write-guard.py", "timeout": 10},
+      {"matcher": "Agent", "script": "dispatch-guard.py", "timeout": 5}
+    ],
+    "SubagentStop": [
+      {"matcher": "reviewer|verifier", "script": "verdict-guard.py", "timeout": 5}
+    ],
+    "SessionStart": [
+      {"matcher": "*", "script": "announce-instructions.py", "timeout": 5},
+      {"matcher": "*", "script": "drift-notice.py", "timeout": 10}
+    ]
+  },
+  "defaults": {
+    "attribution": {"commit": "", "pr": "", "sessionUrl": false},
+    "permissions.allow": ["Bash(git commit:*)", "Bash(rm:*)", "Bash(find:*)", "Bash(mv:*)", "Bash(git push origin *)"],
+    "permissions.ask": ["Bash(git push origin main *)"]
+  }
+}
