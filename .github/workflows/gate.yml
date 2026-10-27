@@ -1,0 +1,15 @@
+name: gate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: bash tests/gate.sh
